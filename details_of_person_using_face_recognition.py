@@ -3,17 +3,17 @@ from deepface import DeepFace
 import numpy as np
 import os
 
-face_cascade_name = os.path.dirname(cv2.__file__)+"/data/haarcascade_frontalface_default.xml"  #getting a haarcascade xml file
-face_cascade = cv2.CascadeClassifier(face_cascade_name)  #processing it for our project
-if not face_cascade.load(cv2.samples.findFile(face_cascade_name)):  #adding a fallback event
+face_cascade_name = os.path.dirname(cv2.__file__)+"/data/haarcascade_frontalface_default.xml"
+face_cascade = cv2.CascadeClassifier(face_cascade_name)
+if not face_cascade.load(cv2.samples.findFile(face_cascade_name)):
     print("Error loading xml file")
 
-video=cv2.VideoCapture(0,cv2.CAP_DSHOW)  #requisting the input from the webcam or camera
+video=cv2.VideoCapture(0,cv2.CAP_DSHOW)
 
-while video.isOpened():  #checking if are getting video feed and using it
+while video.isOpened():
     _,frame = video.read()
 
-    gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)  #changing the video to grayscale to make the face analisis work properly
+    gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
     face=face_cascade.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5)
 
     for x,y,w,h in face:
